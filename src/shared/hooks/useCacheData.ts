@@ -1,8 +1,8 @@
-import {useCallback} from "react";
+import {useMemo} from "react";
 import {getValueLocalStorage, setValueLocalStorage} from "../helpers/localStrodageHelper";
 
 export const useCachedData = (callback: (...args: any[]) => Promise<any>) => {
-    return useCallback(async (id: number) => {
+    return useMemo(() => async (id: number) => {
         const usersCacheFormLocalStorage = getValueLocalStorage(id.toString())
 
         if (usersCacheFormLocalStorage) {
@@ -15,5 +15,5 @@ export const useCachedData = (callback: (...args: any[]) => Promise<any>) => {
             setValueLocalStorage(id.toString(), value)
         }
         return value
-    }, [])
+    }, [callback])
 }
